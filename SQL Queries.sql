@@ -98,16 +98,16 @@ FROM olympics_history
 JOIN olympics_history_noc_regions USING(noc)
 GROUP BY noc
 HAVING COUNT(DISTINCT games)  =	(SELECT COUNT(DISTINCT games)
-								FROM olympics_history);
+				FROM olympics_history);
 
 -- 6. Identify the sport which was played in all summer olympics.
 SELECT sport
 FROM olympics_history
 WHERE season='summer'
 GROUP BY sport
-HAVING COUNT(DISTINCT games)=(SELECT COUNT(DISTINCT games)
-							FROM olympic
-							WHERE season='summer');
+HAVING COUNT(DISTINCT games)  =	(SELECT COUNT(DISTINCT games)
+				FROM olympic
+				WHERE season='summer');
 
 -- 7. Which Sports were just played only once in the olympics and in which year it took place?
 SELECT sport, games 
@@ -124,7 +124,7 @@ GROUP BY games;
 SELECT * 
 FROM olympics_history
 WHERE medal='gold' AND age=(SELECT MAX(age)
-							FROM olympic
+			    FROM olympic
                             WHERE medal= 'Gold');
 
 -- 10. Find the Ratio of male and female athletes participated in all olympic games.
@@ -153,7 +153,7 @@ FROM
 	(SELECT name,COUNT(Medal) cnt, RANK() OVER(ORDER BY COUNT(Medal) DESC) rnk
 	FROM olympics_history
 	WHERE Medal='gold'
-    GROUP BY Name) x
+        GROUP BY Name) x
 WHERE rnk<=5;
 
 -- Using Dense rank
@@ -162,7 +162,7 @@ FROM
 	(SELECT name,COUNT(Medal) cnt, DENSE_RANK() OVER(ORDER BY COUNT(Medal) DESC) rnk
 	FROM olympics_history
 	WHERE Medal='gold'
-    GROUP BY Name) x
+        GROUP BY Name) x
 WHERE rnk<=5;
 
 -- 12. Fetch the top 5 athletes who have won the most medals (gold/silver/bronze).
@@ -171,7 +171,7 @@ FROM
 	(SELECT name,COUNT(Medal) cnt, DENSE_RANK() OVER(ORDER BY COUNT(Medal) DESC) rnk
 	FROM olympics_history
 	WHERE Medal IS NOT NULL AND Medal<> 'NA'
-    GROUP BY Name) x
+        GROUP BY Name) x
 WHERE rnk<=5;
 
 -- 13.	Fetch the top 5 most successful countries in olympics. Success is defined by no of medals won.
