@@ -129,11 +129,11 @@ WHERE medal='gold' AND age=(SELECT MAX(age)
 
 -- 10. Find the Ratio of male and female athletes participated in all olympic games.
 WITH male AS (
-			SELECT sex, COUNT(*) mc 
+			SELECT sex, COUNT(DISTINCT id) mc 
 			FROM olympics_history 
 			WHERE sex='M'),
 	female AS ( 
-			SELECT sex, COUNT(*) fc 
+			SELECT sex, COUNT(DISTINCT id) fc 
 			FROM olympics_history 
 			WHERE sex= 'F')
 SELECT CONCAT(1 ,' : ',mc/fc) ratio FROM male, female;
@@ -141,7 +141,7 @@ SELECT CONCAT(1 ,' : ',mc/fc) ratio FROM male, female;
 -- Alternate method
 SELECT CONCAT(1,':', ROUND(MAX(cnt)/MIN(cnt),2)) male_to_female_ratio
 FROM 	
-	(SELECT sex, COUNT(*) cnt
+	(SELECT sex, COUNT(DISTINCT id) cnt
 	FROM olympics_history
 	GROUP BY sex) x;
 
