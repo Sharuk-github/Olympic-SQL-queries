@@ -1,5 +1,5 @@
 # Olympic-SQL-queries
-### Solving 20 problems with increasing difficulties.
+### Building a Database and Solving 20 problems with increasing difficulties.
 1.	How many olympics games have been held?
 2.	List down all Olympics games held so far.
 3.	Mention the total no of nations who participated in each olympics game?
